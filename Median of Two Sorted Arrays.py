@@ -1,30 +1,38 @@
-class Solution:
-    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        if len(nums1) > len(nums2):
-            nums1, nums2 = nums2, nums1
+def findMedianSortedArrays(nums1, nums2):
+    # Ensure nums1 is the smaller array
+    if len(nums1) > len(nums2):
+        nums1, nums2 = nums2, nums1
 
-        x, y = len(nums1), len(nums2)
-        start = 0
-        end = x
+    # Calculate the total length
+    total_length = len(nums1) + len(nums2)
 
-        while start <= end:
-            partitionX = (start + end) // 2
-            partitionY = (x + y + 1) // 2 - partitionX
+    # Initialize the low and high pointers
+    low = 0
+    high = len(nums1)
 
-            maxLeftX = float('-inf') if partitionX == 0 else nums1[partitionX - 1]
-            minRightX = float('inf') if partitionX == x else nums1[partitionX]
+    while low <= high:
+        # Calculate the partition point for nums1
+        partitionX = (low + high) // 2
 
-            maxLeftY = float('-inf') if partitionY == 0 else nums2[partitionY - 1]
-            minRightY = float('inf') if partitionY == y else nums2[partitionY]
+        # Calculate the partition point for nums2
+        partitionY = (total_length + 1) // 2 - partitionX
 
-            if maxLeftX <= minRightY and maxLeftY <= minRightX:
-                if (x + y) % 2 == 0:
-                    return (max(maxLeftX, maxLeftY) + min(minRightX, minRightY)) / 2
-                else:
-                    return max(maxLeftX, maxLeftY)
+        # Calculate the max and min values for both partitions
+        maxLeftX = float('-inf') if partitionX == 0 else nums1[partitionX - 1]
+        minRightX = float('inf') if partitionX == len(nums1) else nums1[partitionX]
 
-            elif maxLeftX > minRightY:
-                end = partitionX - 1
+        maxLeftY = float('-inf') if partitionY == 0 else nums2[partitionY - 1]
+        minRightY = float('inf') if partitionY == len(nums2) else nums2[partitionY]
+
+        # Check if the partition is correct
+        if maxLeftX <= minRightY and maxLeftY <= minRightX:
+            # Calculate the median
+            if total_length % 2 == 0:
+                return (max(maxLeftX, maxLeftY) + min(minRightX, minRightY)) / 2
             else:
-                start = partitionX + 1
-
+                return max(maxLeftX, maxLeftY)
+        # Adjust the partition points
+        elif maxLeftX > minRightY:
+            high = partitionX - 1
+        else:
+            low = partitionX + 1
