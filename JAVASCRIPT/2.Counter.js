@@ -26,7 +26,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const createCounter = (b) => {
+const createCounter = (n) => {
     if (typeof n !== 'number' || n <= 0) {
         return () => "Please enter a valid number greater than 0.";  
     }
