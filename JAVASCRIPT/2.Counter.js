@@ -39,7 +39,7 @@ rl.question('Please enter a number greater than 0: ', (input) => {
 
     if (isNaN(n) || n <= 0) {
         console.log("Please enter a valid number greater than 0.");
-        rl.close();  // Close the readline interface
+        rl.close();  
     } else {
       const counter = createCounter(n);
         console.log(counter());  
