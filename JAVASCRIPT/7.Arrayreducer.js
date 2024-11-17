@@ -42,7 +42,8 @@ class Solution{
     let val = init;
     
     for(i=0;i < nums.length;i++){
-
+      val = fn(val,nums[i]);
     }
+    return val;
   }
 }
