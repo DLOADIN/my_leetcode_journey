@@ -40,7 +40,6 @@
 class Solution{
   Solution=(init,nums,fn)=>{
     let val = init;
-    
     for(i=0;i < nums.length;i++){
       val = fn(val,nums[i]);
     }
