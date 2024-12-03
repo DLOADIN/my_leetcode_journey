@@ -4,5 +4,4 @@ class Solution{
   async sleep(millis, value) {
     return new Promise(resolve => setTimeout(() => resolve(value), millis));
   }
-    
 }
